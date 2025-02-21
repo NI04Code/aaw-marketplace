@@ -1,0 +1,74 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: ./authentication
+    container_name: auth-service
+    ports:
+      - "8001:8000"
+    environment:
+      - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
+      - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-auth
+
+  order-service:
+    build: ./orders
+    container_name: order-service
+    ports:
+      - "8004:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-order
+      
+  wishlist-service:
+    build: ./wishlist
+    container_name: wishlist-service
+    ports:
+      - "8005:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-wishlist
+
+  product-service:
+    build: ./products
+    container_name: product-service
+    ports:
+      - "8003:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-product
+
+  tenant-service:
+    build: ./tenant
+    container_name: tenant-service
+    ports:
+      - "8002:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=host.docker.internal
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-tenant
