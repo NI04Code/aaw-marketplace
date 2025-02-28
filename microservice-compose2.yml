@@ -1,0 +1,129 @@
+version: "3.8"
+
+services:
+  auth-service:
+    build: ./authentication
+    container_name: auth-service
+    ports:
+      - "8001:8000"
+    environment:
+      - ADMIN_JWT_SECRET=admin_auth_ms_jwt_secret
+      - ADMIN_TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=auth-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-auth
+    depends_on:
+      - auth-db
+
+  order-service:
+    build: ./orders
+    container_name: order-service
+    ports:
+      - "8004:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=order-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-order
+    depends_on:
+      - order-db
+      
+  wishlist-service:
+    build: ./wishlist
+    container_name: wishlist-service
+    ports:
+      - "8005:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=wishlist-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-wishlist
+    depends_on:
+      - wishlist-db
+
+  product-service:
+    build: ./products
+    container_name: product-service
+    ports:
+      - "8003:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=product-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-product
+    depends_on:
+      - product-db
+
+  tenant-service:
+    build: ./tenant
+    container_name: tenant-service
+    ports:
+      - "8002:8000"
+    environment:
+      - TENANT_ID=47dd6b24-0b23-46b0-a662-776158d089ba
+      - JWT_SECRET=auth_ms_jwt_secret
+      - DB_HOST=tenant-db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=aaw-marketplace-tenant
+    depends_on:
+      - tenant-db
+  
+  auth-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw-marketplace-auth
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+  
+  order-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw-marketplace-order
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    
+  wishlist-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw-marketplace-wishlist
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+  
+  product-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw-marketplace-product
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+  
+  tenant-db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: aaw-marketplace-tenant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5436:5432"
