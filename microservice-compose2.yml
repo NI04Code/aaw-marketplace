@@ -90,7 +90,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5437:5432"
   
   order-db:
     image: postgres:latest
