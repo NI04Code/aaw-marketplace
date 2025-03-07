@@ -1,4 +1,4 @@
-#!/bin/sh'
+#!/bin/sh
 echo "Waiting db init"
 sleep 10
 echo "Migrating"
