@@ -5,10 +5,10 @@ import * as Handler from './product.handler';
 
 const router = express.Router();
 
-router.get('', Handler.getAllProductsHandler);
-router.get('/category', Handler.getAllCategoryHandler);
+router.get('/v2/all', Handler.getAllProductsHandler);
+router.get('/v2/categories', Handler.getAllCategoryHandler);
 router.get('/:id', validate(Validation.getProductByIdSchema), Handler.getProductByIdHandler);
-router.post('/many', validate(Validation.getManyProductDatasByIdSchema), Handler.getManyProductDatasByIdHandler);
+router.get('/v2/many', validate(Validation.getManyProductDatasByIdSchema), Handler.getManyProductDatasByIdHandler);
 router.get('/category/:category_id', validate(Validation.getProductByCategorySchema), Handler.getProductByCategoryHandler);
 router.post('', verifyJWTProduct, validate(Validation.createProductSchema), Handler.createProductHandler);
 router.post('/category', verifyJWTProduct, validate(Validation.createCategorySchema), Handler.createCategoryHandler);
