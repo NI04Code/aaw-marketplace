@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { getUserByUsername } from '../dao/getUserByUsername.dao';
 
-import { InternalServerErrorResponse, NotFoundResponse } from "@src/commons/patterns"
+import { InternalServerErrorResponse, NotFoundResponse, UnauthorizedResponse } from "@src/commons/patterns"
 import { User } from '@db/schema/users';
 
 export const loginService = async (
@@ -19,7 +19,7 @@ export const loginService = async (
             SERVER_TENANT_ID,
         );
         if (!user) {
-            return new NotFoundResponse("User not found").generate();
+            return new UnauthorizedResponse("User not found").generate();
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
