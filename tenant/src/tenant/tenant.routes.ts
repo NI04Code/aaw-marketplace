@@ -5,7 +5,7 @@ import * as Handler from './tenant.handler';
 
 const router = express.Router();
 
-router.get('/:tenant_id', verifyJWTTenant, validate(Validation.getTenantSchema), Handler.getTenantHandler);
+router.get('/v1/:tenant_id', verifyJWTTenant, validate(Validation.getTenantSchema), Handler.getTenantHandler);
 router.post('', verifyJWTTenant, validate(Validation.createTenantSchema), Handler.createTenantHandler);
 router.put('/:old_tenant_id', verifyJWTTenant, validate(Validation.editTenantSchema), Handler.editTenantHandler);
 router.delete('', verifyJWTTenant, validate(Validation.deleteTenantSchema), Handler.deleteTenantHandler);
