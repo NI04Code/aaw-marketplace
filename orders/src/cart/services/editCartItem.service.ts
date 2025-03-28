@@ -23,7 +23,7 @@ export const editCartItemService = async (
         const targetedCartItems = cartItems.find(cartItem => cartItem.id === cart_id)
 
         if (!targetedCartItems) {
-            return new UnauthorizedResponse("Forbidden to update cart that not belong to you")
+            return new UnauthorizedResponse("Forbidden to update cart that not belong to you").generate()
         }
 
         let cart;

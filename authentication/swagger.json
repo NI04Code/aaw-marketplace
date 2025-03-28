@@ -1,0 +1,104 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Auth API",
+      "version": "1.0.0",
+      "description": "API untuk autentikasi dan otorisasi pengguna"
+    },
+    "host": "localhost:8001",
+    "basePath": "/api/auth",
+    "schemes": ["http"],
+    "paths": {
+      "/v1/register": {
+        "post": {
+          "summary": "Registrasi pengguna baru",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "full_name": { "type": "string" },
+                  "address": { "type": "string" },
+                  "phone_number": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Registrasi berhasil" }
+          }
+        }
+      },
+      "/v2/login": {
+        "post": {
+          "summary": "Login pengguna",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": { "type": "string" },
+                  "password": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Login berhasil" }
+          }
+        }
+      },
+      "/verify-token": {
+        "post": {
+          "summary": "Verifikasi token pengguna",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Token valid" }
+          }
+        }
+      },
+      "/verify-admin-token": {
+        "post": {
+          "summary": "Verifikasi token admin",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Token admin valid" }
+          }
+        }
+      }
+    }
+  }
+  

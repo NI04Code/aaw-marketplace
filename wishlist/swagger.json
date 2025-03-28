@@ -1,0 +1,206 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Wishlist API",
+      "description": "API untuk mengelola wishlist"
+    },
+    "host": "localhost:8005",
+    "basePath": "/api/wishlist",
+    "schemes": ["http"],
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Get All User Wishlist",
+          "description": "Mengambil semua wishlist milik user",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/WishlistArray"
+              }
+            }
+          }
+        }
+      },
+      "/{id}": {
+        "get": {
+          "summary": "Get Wishlist By ID",
+          "description": "Mengambil wishlist berdasarkan ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Wishlist"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update Wishlist",
+          "description": "Memperbarui nama wishlist",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/UpdateWishlistRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Wishlist updated"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Wishlist",
+          "description": "Menghapus wishlist berdasarkan ID",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Wishlist deleted"
+            }
+          }
+        }
+      },
+      "/v1": {
+        "post": {
+          "summary": "Create Wishlist",
+          "description": "Membuat wishlist baru",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateWishlistRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Wishlist created"
+            }
+          }
+        }
+      },
+      "/add": {
+        "post": {
+          "summary": "Add Product To Wishlist",
+          "description": "Menambahkan produk ke wishlist",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/AddProductRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Product added to wishlist"
+            }
+          }
+        }
+      },
+      "/remove": {
+        "delete": {
+          "summary": "Remove Product From Wishlist",
+          "description": "Menghapus produk dari wishlist",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/RemoveProductRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Product removed from wishlist"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Wishlist": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      },
+      "WishlistArray": {
+        "type": "array",
+        "items": { "$ref": "#/definitions/Wishlist" }
+      },
+      "CreateWishlistRequest": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        },
+        "required": ["name"]
+      },
+      "UpdateWishlistRequest": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        },
+        "required": ["name"]
+      },
+      "AddProductRequest": {
+        "type": "object",
+        "properties": {
+          "wishlist_id": { "type": "string" },
+          "product_id": { "type": "string" }
+        },
+        "required": ["wishlist_id", "product_id"]
+      },
+      "RemoveProductRequest": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" }
+        },
+        "required": ["id"]
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Please type Bearer before adding your token"
+      }
+    },
+    "security": [{ "Bearer": [] }]
+  }
+  

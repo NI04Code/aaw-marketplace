@@ -1,0 +1,151 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Tenant API",
+      "description": "API untuk mengelola tenant"
+    },
+    "host": "localhost:8002",
+    "basePath": "/api/tenant",
+    "schemes": ["http"],
+    "paths": {
+      "/v1/{tenant_id}": {
+        "get": {
+          "summary": "Get Tenant",
+          "description": "Mengambil informasi tenant berdasarkan tenant_id",
+          "parameters": [
+            {
+              "name": "tenant_id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/Tenant"
+              }
+            }
+          }
+        }
+      },
+      "/": {
+        "post": {
+          "summary": "Create Tenant",
+          "description": "Membuat tenant baru",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreateTenantRequest"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Tenant created",
+              "schema": {
+                "$ref": "#/definitions/Tenant"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Tenant",
+          "description": "Menghapus tenant berdasarkan tenant_id",
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/DeleteTenantRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tenant deleted"
+            }
+          }
+        }
+      },
+      "/{old_tenant_id}": {
+        "put": {
+          "summary": "Edit Tenant",
+          "description": "Mengedit informasi tenant",
+          "parameters": [
+            {
+              "name": "old_tenant_id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/EditTenantRequest"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Tenant updated",
+              "schema": {
+                "$ref": "#/definitions/Tenant"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Tenant": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "owner_id": { "type": "string" }
+        }
+      },
+      "CreateTenantRequest": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        },
+        "required": ["name"]
+      },
+      "EditTenantRequest": {
+        "type": "object",
+        "properties": {
+          "tenant_id": { "type": "string" },
+          "owner_id": { "type": "string" },
+          "name": { "type": "string" }
+        },
+        "required": ["tenant_id", "owner_id", "name"]
+      },
+      "DeleteTenantRequest": {
+        "type": "object",
+        "properties": {
+          "tenant_id": { "type": "string" }
+        },
+        "required": ["tenant_id"]
+      }
+    },
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Please type Bearer before adding your token"
+      }
+    },
+    "security": [{ "Bearer": [] }]
+  }
+  

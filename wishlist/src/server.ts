@@ -8,6 +8,10 @@ import wishlistRoutes from "./wishlist/wishlist.routes";
 
 import express_prom_bundle from "express-prom-bundle";
 
+import swaggerUi from "swagger-ui-express";
+import fs from "fs";
+import path from "path";
+
 const app: Express = express();
 
 // Prometheus metrics middleware
@@ -22,13 +26,17 @@ const metricsMiddleware = express_prom_bundle({
   }
 });
 
+// swagger
+const swaggerFilePath = path.join(__dirname, "../swagger.json");
+const swaggerDocument = JSON.parse(fs.readFileSync(swaggerFilePath, "utf8"));
+
 // Middleware
 app.use(metricsMiddleware);
 app.use(cors());
 app.use(express.json());
 
 // Routes
-
+app.use("/api/wishlist/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/api/wishlist', wishlistRoutes);
 
 // Health check endpoint

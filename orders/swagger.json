@@ -1,0 +1,185 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "AAW Marketplace API",
+      "version": "1.0.0",
+      "description": "Dokumentasi API untuk Cart dan Order"
+    },
+    "host": "localhost:8004",
+    "basePath": "/api",
+    "schemes": ["http"],
+    "paths": {
+      "/cart": {
+        "get": {
+          "summary": "Mendapatkan semua item di keranjang pengguna",
+          "responses": {
+            "200": { "description": "Daftar item di keranjang berhasil diambil" }
+          }
+        },
+        "post": {
+          "summary": "Menambahkan item ke keranjang",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": { "type": "string" },
+                  "quantity": { "type": "integer" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Item berhasil ditambahkan ke keranjang" }
+          }
+        }
+      },
+      "/cart/v2": {
+        "put": {
+          "summary": "Mengedit item di keranjang",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cart_id": { "type": "string" },
+                  "quantity": { "type": "integer" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Item berhasil diperbarui di keranjang" }
+          }
+        },
+        "delete": {
+          "summary": "Menghapus item dari keranjang",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Item berhasil dihapus dari keranjang" }
+          }
+        }
+      },
+      "/order": {
+        "get": {
+          "summary": "Mendapatkan semua pesanan pengguna",
+          "responses": {
+            "200": { "description": "Daftar pesanan berhasil diambil" }
+          }
+        },
+        "post": {
+          "summary": "Membuat pesanan baru",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shipping_provider": { "type": "string" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": { "description": "Pesanan berhasil dibuat" }
+          }
+        }
+      },
+      "/order/{orderId}": {
+        "get": {
+          "summary": "Mendapatkan detail pesanan",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "orderId",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Detail pesanan berhasil diambil" }
+          }
+        }
+      },
+      "/order/{orderId}/v2/pay": {
+        "post": {
+          "summary": "Melakukan pembayaran pesanan",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "orderId",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "payment_method": { "type": "string" },
+                  "payment_reference": { "type": "string" },
+                  "amount": { "type": "number" }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": { "description": "Pembayaran berhasil dilakukan" }
+          }
+        }
+      },
+      "/order/{orderId}/cancel": {
+        "post": {
+          "summary": "Membatalkan pesanan",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "orderId",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": { "description": "Pesanan berhasil dibatalkan" }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "bearerAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Please type Bearer before adding your token",
+        "x-bearerInfoFunc": "bearer_auth"
+      }
+    },
+    "security": [
+        {
+        "bearerAuth": []
+        }
+    ]
+  }
+  

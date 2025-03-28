@@ -1,0 +1,180 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Product API",
+      "description": "API documentation for product services"
+    },
+    "host": "localhost:8003",
+    "basePath": "/api/product",
+    "schemes": ["http"],
+    "securityDefinitions": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header",
+        "description": "Please type Bearer before adding your token"
+      }
+    },
+    "security": [{ "Bearer": [] }],
+    "paths": {
+      "/v2/all": {
+        "get": {
+          "summary": "Get all products",
+          "security": [{ "Bearer": [] }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/v2/categories": {
+        "get": {
+          "summary": "Get all categories",
+          "security": [{ "Bearer": [] }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/{id}": {
+        "get": {
+          "summary": "Get product by ID",
+          "parameters": [{
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/v2/many": {
+        "get": {
+          "summary": "Get multiple product data by IDs",
+          "parameters": [{
+            "name": "productIds",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/category/{category_id}": {
+        "get": {
+          "summary": "Get products by category",
+          "parameters": [{
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/": {
+        "post": {
+          "summary": "Create a product",
+          "security": [{ "Bearer": [] }],
+          "parameters": [{
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "price": { "type": "number" },
+                "quantity_available": { "type": "integer" },
+                "category_id": { "type": "string" }
+              }
+            }
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/category": {
+        "post": {
+          "summary": "Create a category",
+          "security": [{ "Bearer": [] }],
+          "parameters": [{
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" }
+              }
+            }
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      },
+      "/{id}": {
+        "put": {
+          "summary": "Edit a product",
+          "security": [{ "Bearer": [] }],
+          "parameters": [
+            { "name": "id", "in": "path", "required": true, "type": "string" },
+            { "name": "body", "in": "body", "required": true, "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" },
+                "price": { "type": "number" },
+                "quantity_available": { "type": "integer" },
+                "category_id": { "type": "string" }
+              }
+            }}
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a product",
+          "security": [{ "Bearer": [] }],
+          "parameters": [{ "name": "id", "in": "path", "required": true, "type": "string" }],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      }
+    }
+  }
+  
