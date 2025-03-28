@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tenant-config
+data:
+  TENANT_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
+  DB_HOST: "tenant-db"
+  DB_PORT: "5432"
+  DB_NAME: "aaw-marketplace-tenant"
+
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tenant-secrets
+type: Opaque
+data:
+  JWT_SECRET: YXV0aF9tc19qd3Rfc2VjcmV0  # Base64-encoded value
+  DB_USER: cG9zdGdyZXM=  # Base64 of "cG9zdGdyZXM="
+  DB_PASSWORD: cG9zdGdyZXM=  # Base64 of "cG9zdGdyZXM="

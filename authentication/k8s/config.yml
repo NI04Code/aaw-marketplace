@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+data:
+  ADMIN_TENANT_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
+  TENANT_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
+  DB_HOST: "auth-db"
+  DB_PORT: "5432"
+  DB_NAME: "aaw-marketplace-auth"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auth-secrets
+type: Opaque
+data:
+  ADMIN_JWT_SECRET: YWRtaW5fYXV0aF9tc19qd3Rfc2VjcmV0  # Base64-encoded value
+  JWT_SECRET: YXV0aF9tc19qd3Rfc2VjcmV0  # Base64-encoded value
+  DB_USER: cG9zdGdyZXM=  # Base64 of "postgres"
+  DB_PASSWORD: cG9zdGdyZXM=  # Base64 of "postgres"
