@@ -1,6 +1,8 @@
-import { InternalServerErrorResponse, NotFoundResponse } from "@src/commons/patterns";
+import { InternalServerErrorResponse, NotFoundResponse, UnauthorizedResponse } from "@src/commons/patterns";
 import { User } from "@type/user";
 import { deleteCartItemByProductId } from "../dao/deleteCartItemByProductId.dao";
+import { getAllCartItems } from "../dao/getAllCartItems.dao";
+
 
 export const deleteCartItemService = async (
     user: User,
@@ -13,8 +15,16 @@ export const deleteCartItemService = async (
         }
 
         if (!user.id) {
-            return new NotFoundResponse('User not found').generate();
+            return new UnauthorizedResponse('User not found').generate();
         }
+       
+        const cartItems = await getAllCartItems(SERVER_TENANT_ID, user.id)
+        const targetedCartItems = cartItems.find(cartItem => cartItem.product_id === product_id)
+
+        if (!targetedCartItems) {
+            return new NotFoundResponse('Product not found on cart').generate()
+        }
+
 
         const cart = await deleteCartItemByProductId(SERVER_TENANT_ID, user.id, product_id);
 

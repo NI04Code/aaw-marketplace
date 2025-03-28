@@ -1,7 +1,8 @@
-import { InternalServerErrorResponse } from "@src/commons/patterns";
+import { InternalServerErrorResponse, UnauthenticatedResponse, UnauthorizedResponse } from "@src/commons/patterns";
 import { editCartDataById } from "../dao/editCartDataById.dao";
 import { deleteCartItem } from "../dao/deleteCartItem.dao";
 import { User } from "@type/user";
+import { getAllCartItems } from "../dao/getAllCartItems.dao";
 
 export const editCartItemService = async (
     user: User,
@@ -15,7 +16,14 @@ export const editCartItemService = async (
         }
 
         if (!user.id) {
-            return new InternalServerErrorResponse('User ID not found').generate();
+            return new UnauthorizedResponse('User ID not found').generate();
+        }
+        
+        const cartItems = await getAllCartItems(SERVER_TENANT_ID, user.id);
+        const targetedCartItems = cartItems.find(cartItem => cartItem.id === cart_id)
+
+        if (!targetedCartItems) {
+            return new UnauthenticatedResponse("Forbidden to update cart that not belong to you")
         }
 
         let cart;
