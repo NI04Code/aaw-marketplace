@@ -16,14 +16,14 @@ export const editCartItemService = async (
         }
 
         if (!user.id) {
-            return new UnauthorizedResponse('User ID not found').generate();
+            return new UnauthenticatedResponse('User ID not found').generate();
         }
         
         const cartItems = await getAllCartItems(SERVER_TENANT_ID, user.id);
         const targetedCartItems = cartItems.find(cartItem => cartItem.id === cart_id)
 
         if (!targetedCartItems) {
-            return new UnauthenticatedResponse("Forbidden to update cart that not belong to you")
+            return new UnauthorizedResponse("Forbidden to update cart that not belong to you")
         }
 
         let cart;
