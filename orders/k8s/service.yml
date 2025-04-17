@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: aaw-marketplace-order-service:latest
+          image: ni04code/aaw-marketplace-order-service:latest
           env:
             - name: TENANT_ID
               valueFrom:

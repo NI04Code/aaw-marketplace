@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: aaw-marketplace-auth-service:latest  # Sesuaikan dengan image yang dibangun
+          image: ni04code/aaw-marketplace-auth-service:latest 
           env:
             - name: ADMIN_TENANT_ID
               valueFrom:

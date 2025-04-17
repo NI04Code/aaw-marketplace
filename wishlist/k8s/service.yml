@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: wishlist-service
-          image: aaw-marketplace-wishlist-service:latest
+          image: ni04code/aaw-marketplace-wishlist-service:latest
           env:
             - name: wishlist_ID
               valueFrom:
