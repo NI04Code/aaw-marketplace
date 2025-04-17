@@ -14,7 +14,14 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: ni04code/aaw-marketplace-auth-service:latest 
+          image: ni04code/aaw-marketplace-auth-service:latest
+          resources:
+            requests:
+              cpu: "250m"       # 0.25 core reserved
+              memory: "256Mi"   # 256 MiB RAM reserved
+            limits:
+              cpu: "500m"       # max 0.5 core
+              memory: "512Mi"   # max 512 MiB RAM 
           env:
             - name: ADMIN_TENANT_ID
               valueFrom:
