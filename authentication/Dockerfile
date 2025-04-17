@@ -28,6 +28,8 @@ COPY --from=builder /marketplace-auth/dist ./dist
 COPY --from=builder /marketplace-auth/drizzle ./drizzle
 COPY --from=builder /marketplace-auth/package.json ./package.json
 COPY --from=builder /marketplace-auth/entrypoint.sh ./entrypoint.sh
+COPY --from=builder /marketplace-auth/swagger.json ./swagger.json
+
 
 RUN npm install --only=production
 

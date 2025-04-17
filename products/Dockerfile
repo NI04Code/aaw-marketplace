@@ -28,6 +28,8 @@ COPY --from=builder /marketplace-product/dist ./dist
 COPY --from=builder /marketplace-product/drizzle ./drizzle
 COPY --from=builder /marketplace-product/package.json ./package.json
 COPY --from=builder /marketplace-product/entrypoint.sh ./entrypoint.sh
+COPY --from=builder /marketplace-product/swagger.json ./swagger.json
+
 
 RUN npm install --only=production
 
