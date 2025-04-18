@@ -8,7 +8,7 @@ spec:
     kind: Deployment
     name: product-service
   minReplicas: 3
-  maxReplicas: 15
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
