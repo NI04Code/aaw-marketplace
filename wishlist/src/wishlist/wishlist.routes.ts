@@ -5,12 +5,12 @@ import * as Handler from './wishlist.handler';
 
 const router = express.Router();
 
-router.get('/', verifyJWT, Handler.getAllUserWishlistHandler);
-router.get('/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandler);
+router.get('/v1', verifyJWT, Handler.getAllUserWishlistHandler);
+router.get('/v1/:id', verifyJWT, validate(Validation.getWishlistByIdSchema), Handler.getWishlistByIdHandler);
 router.post('/v1', verifyJWT, validate(Validation.createWishlistSchema), Handler.createWishlistHandler);
-router.put('/:id', verifyJWT, validate(Validation.updateWishlistSchema), Handler.updateWishlistHandler);
-router.delete('/remove', verifyJWT, validate(Validation.removeProductFromWishlistSchema), Handler.removeProductFromWishlistHandler);
-router.delete('/:id', verifyJWT, validate(Validation.deleteWishlistSchema), Handler.deleteWishlistHandler);
-router.post('/add', verifyJWT, validate(Validation.addProductToWishlistSchema), Handler.addProductToWishlistHandler);
+router.put('/v1/:id', verifyJWT, validate(Validation.updateWishlistSchema), Handler.updateWishlistHandler);
+router.delete('/v1/remove', verifyJWT, validate(Validation.removeProductFromWishlistSchema), Handler.removeProductFromWishlistHandler);
+router.delete('/v1/:id', verifyJWT, validate(Validation.deleteWishlistSchema), Handler.deleteWishlistHandler);
+router.post('/v1/add', verifyJWT, validate(Validation.addProductToWishlistSchema), Handler.addProductToWishlistHandler);
 
 export default router;
