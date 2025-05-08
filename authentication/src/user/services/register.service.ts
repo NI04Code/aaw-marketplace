@@ -35,7 +35,7 @@ export const registerService = async (
             phone_number
         }
         console.log("userData===>",userData)
-        const newUser = await insertNewUser(userData)
+        const [newUser] = await insertNewUser(userData)
 
         logger.info('User registered successfully', { userId: newUser.id, username });
 
