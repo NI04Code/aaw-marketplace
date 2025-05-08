@@ -4,14 +4,17 @@ import { getUserByUsername } from '../dao/getUserByUsername.dao';
 
 import { InternalServerErrorResponse, NotFoundResponse, UnauthenticatedResponse, UnauthorizedResponse } from "@src/commons/patterns"
 import { User } from '@db/schema/users';
+import { logger } from '@src/utils/logger';
 
 export const loginService = async (
     username: string,
     password: string
 ) => {
     try {
+        logger.info('Login attempt started', { username });
         const SERVER_TENANT_ID = process.env.TENANT_ID;
         if (!SERVER_TENANT_ID) {
+            logger.error('Missing TENANT_ID in environment');
             return new InternalServerErrorResponse("Server tenant ID is missing").generate();
         }
         const user: User = await getUserByUsername(
@@ -19,6 +22,7 @@ export const loginService = async (
             SERVER_TENANT_ID,
         );
         if (!user) {
+            logger.warn('User not found', { username, tenantId: SERVER_TENANT_ID });
             return new UnauthenticatedResponse("User not found").generate();
         }
 
@@ -43,6 +47,7 @@ export const loginService = async (
             status: 200
         }
     } catch (err: any) {
+        logger.error('Unexpected error during login', { error: err.message });
         return new InternalServerErrorResponse(err).generate();
     }
 }
