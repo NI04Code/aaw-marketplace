@@ -3,6 +3,7 @@ import { getWishlistDetailById } from "../dao/getWishlistDetailById.dao";
 import { getWishlistById } from "../dao/getWishlistById.dao";
 import { removeProductFromWishlist } from "../dao/removeProductFromWishlist.dao";
 import { User } from "@type/user";
+import { logger } from "@src/utils/logger";
 
 export const removeProductFromWishlistService = async (
     id: string,
@@ -20,25 +21,42 @@ export const removeProductFromWishlistService = async (
         
         const wishlistDetail = await getWishlistDetailById(id);
         if (!wishlistDetail) {
+            logger.warn("Wishlist detail not found", { userId: user.id, detailId: id });
             return new InternalServerErrorResponse('Wishlist detail not found').generate();
         }
 
         const wishlist = await getWishlistById(SERVER_TENANT_ID, wishlistDetail.wishlist_id);
         if (!wishlist) {
+            logger.warn("Wishlist not found during removal", { userId: user.id, wishlistId: wishlistDetail.wishlist_id });
             return new InternalServerErrorResponse('Wishlist not found').generate();
         }
 
         if (wishlist.user_id !== user.id) {
+            logger.warn("Unauthorized wishlist removal attempt", {
+                userId: user.id,
+                wishlistId: wishlist.id,
+                detailId: id
+            });
             return new InternalServerErrorResponse('User is not authorized to remove product from this wishlist').generate();
         }
 
         const removeWishlistDetailData = await removeProductFromWishlist(id);
+        logger.info("Product removed from wishlist", {
+            userId: user.id,
+            wishlistId: wishlist.id,
+            detailId: id,
+        });
 
         return {
             data: removeWishlistDetailData,
             status: 200,
         };
     } catch (err: any) {
+        logger.error("Failed to remove product from wishlist", {
+            userId: user?.id,
+            detailId: id,
+            error: err.message,
+        });
         return new InternalServerErrorResponse(err).generate();
     }
 }

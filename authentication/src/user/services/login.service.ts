@@ -11,7 +11,6 @@ export const loginService = async (
     password: string
 ) => {
     try {
-        logger.info('Login attempt started', { username });
         const SERVER_TENANT_ID = process.env.TENANT_ID;
         if (!SERVER_TENANT_ID) {
             logger.error('Missing TENANT_ID in environment');

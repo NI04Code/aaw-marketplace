@@ -3,6 +3,7 @@ import { BadRequestResponse, InternalServerErrorResponse, NotFoundResponse } fro
 import { createOrder } from "../dao/createOrder.dao";
 import axios, { AxiosResponse } from "axios";
 import { User, Product } from "@type/index";
+import { logger } from "@src/utils/logger"; 
 
 export const placeOrderService = async (
     user: User,
@@ -11,18 +12,22 @@ export const placeOrderService = async (
     try {
         const SERVER_TENANT_ID = process.env.TENANT_ID;
         if (!SERVER_TENANT_ID) {
+            logger.error("Server tenant ID not found", { env: process.env.NODE_ENV });
             return new InternalServerErrorResponse("Server tenant id not found").generate();
         }
 
         if (!['JNE', 'TIKI', 'SICEPAT', 'GOSEND', 'GRAB_EXPRESS'].includes(shipping_provider)) {
+            logger.warn("Invalid shipping provider", { userId: user?.id, shipping_provider });
             return new NotFoundResponse('Shipping provider not found').generate();
         }
 
         if (!user.id) {
+            logger.error("User ID not found", { user });
             return new InternalServerErrorResponse("User id not found").generate();
         }
 
         // get the cart items
+        logger.info("Getting cart items", { userId: user.id });
         const cartItems = await getAllCartItems(SERVER_TENANT_ID, user.id);
 
         // get the product datas
@@ -35,6 +40,12 @@ export const placeOrderService = async (
             return new InternalServerErrorResponse("Failed to get products").generate();
         }
 
+        logger.info("Creating order", {
+            userId: user.id,
+            productCount: products.data.length,
+            shipping_provider
+        });
+        
         // create order
         const order = await createOrder(
             SERVER_TENANT_ID,
@@ -48,8 +59,13 @@ export const placeOrderService = async (
             data: order,
             status: 201,
         }
+
     } catch (err: any) {
-        console.error(err)
+        logger.error("Error placing order", {
+            userId: user?.id,
+            message: err.message,
+            stack: err.stack,
+        });
         return new InternalServerErrorResponse(err).generate();
     }
 }

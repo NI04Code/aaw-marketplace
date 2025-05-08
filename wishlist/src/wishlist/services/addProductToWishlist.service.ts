@@ -3,6 +3,7 @@ import { InternalServerErrorResponse } from "@src/commons/patterns";
 import { addProductToWishlist } from "../dao/addProductToWishlist.dao";
 import { getWishlistById } from "../dao/getWishlistById.dao";
 import { User } from "@type/user";
+import { logger } from "@src/utils/logger";
 
 export const addProductToWishlistService = async (
     wishlist_id: string,
@@ -16,6 +17,7 @@ export const addProductToWishlistService = async (
         }
 
         if (!user.id) {
+            logger.warn("Wishlist not found", { userId: user.id, wishlistId: wishlist_id });
             return new InternalServerErrorResponse('User ID is missing').generate();
         }
 
@@ -25,6 +27,7 @@ export const addProductToWishlistService = async (
         }
 
         if (wishlist.user_id !== user.id) {
+            logger.warn("Unauthorized wishlist access attempt", { userId: user.id, wishlistId: wishlist_id });
             return new InternalServerErrorResponse('User is not authorized to add product to this wishlist').generate();
         }
 
@@ -35,11 +38,23 @@ export const addProductToWishlistService = async (
 
         const wishlistDetail = await addProductToWishlist(wishlistDetailData);
 
+        logger.info("Product added to wishlist", {
+            userId: user.id,
+            wishlistId: wishlist_id,
+            productId: product_id,
+        });
+        
         return {
             data: wishlistDetail,
             status: 201,
         };
     } catch (err: any) {
+        logger.error("Failed to add product to wishlist", {
+            userId: user?.id,
+            wishlistId: wishlist_id,
+            productId: product_id,
+            error: err.message,
+        });
         return new InternalServerErrorResponse(err).generate();
     }
 }

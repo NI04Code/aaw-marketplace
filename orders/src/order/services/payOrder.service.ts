@@ -1,6 +1,7 @@
 import { BadRequestResponse, InternalServerErrorResponse, NotFoundResponse } from "@src/commons/patterns";
 import { NewPayment } from "@db/schema/payment";
 import { payOrder } from "../dao/payOrder.dao";
+import { logger } from "@src/utils/logger";
 
 export const payOrderService = async (
     orderId: string,
@@ -11,8 +12,15 @@ export const payOrderService = async (
     try {
         const SERVER_TENANT_ID = process.env.TENANT_ID;
         if (!SERVER_TENANT_ID) {
+            logger.error("Server tenant ID not found");
             return new InternalServerErrorResponse("Server tenant id not found").generate();
         }
+
+        logger.info("Processing payment", {
+            orderId,
+            payment_method,
+            amount,
+        });
 
         const paymentData: NewPayment = {
             tenant_id: SERVER_TENANT_ID,
@@ -23,6 +31,7 @@ export const payOrderService = async (
         }
 
         const payment = await payOrder(paymentData);
+        
 
         return {
             data: payment,
@@ -30,6 +39,11 @@ export const payOrderService = async (
         }
     } catch (err: any) {
         if (err.message === 'Rollback') {
+            logger.warn("Payment mismatch", {
+                orderId,
+                amount,
+                reason: "Amount does not match order total",
+            });
             return new BadRequestResponse("Payment amount does not match order total amount").generate();
         }
 
