@@ -5,7 +5,7 @@ metadata:
 data:
   wishlist_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
   DB_PORT: "5432"
-  DB_NAME: "aaw-marketplace-wishlist"
+  DB_NAME: "postgres"
   DB_WRITER_HOST: "tk-aaw.cluster-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
   DB_READER_HOST: "tk-aaw.cluster-ro-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
 
