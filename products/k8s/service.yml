@@ -12,6 +12,8 @@ spec:
       labels:
         app: product-service
     spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: "true"
       containers:
         - name: product-service
           image: ni04code/aaw-marketplace-product-service:latest

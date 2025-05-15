@@ -12,6 +12,8 @@ spec:
       labels:
         app: auth-service
     spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: "true"
       containers:
         - name: auth-service
           image: ni04code/aaw-marketplace-auth-service:latest

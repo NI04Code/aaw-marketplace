@@ -12,6 +12,8 @@ spec:
       labels:
         app: tenant-service
     spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: "true"
       containers:
         - name: tenant-service
           image: ni04code/aaw-marketplace-tenant-service:latest

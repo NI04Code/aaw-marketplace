@@ -12,6 +12,8 @@ spec:
       labels:
         app: order-service
     spec:
+      nodeSelector:
+        node-role.kubernetes.io/worker: "true"
       containers:
         - name: order-service
           image: ni04code/aaw-marketplace-order-service:latest
