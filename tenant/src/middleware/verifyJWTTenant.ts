@@ -21,7 +21,7 @@ export const verifyJWTTenant = async (
       return res.status(401).send({ message: "Empty Token" });
     }
 
-    const payload = await axios.post("http://auth-service:8000/api/auth/verify-admin-token", { token });
+    const payload = await axios.post("http://13.216.143.77:30001/api/auth/verify-admin-token", { token });
     if (payload.status !== 200) {
       return res.status(401).send({ message: "Invalid token 0" });
     }

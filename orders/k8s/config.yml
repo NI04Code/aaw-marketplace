@@ -8,6 +8,7 @@ data:
   DB_NAME: "postgres"
   DB_WRITER_HOST: "tk-aaw.cluster-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
   DB_READER_HOST: "tk-aaw.cluster-ro-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
+  PRODUCT_URL: "http://54.91.110.68:30003"
 
 
 ---

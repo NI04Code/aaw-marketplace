@@ -8,14 +8,12 @@ const main = async () => {
     console.log('Running migrations...');
     try {
         await migrate(writerDb, { migrationsFolder: './drizzle' });
-        await migrate(readerDb, { migrationsFolder: './drizzle' });
         console.log('Migrations completed successfully');
     } catch (error) {
         console.error('Migration failed:', error);
         throw error;
     } finally {
         await writerPool.end();
-        await readerPool.end();
     }
 }
 

@@ -5,7 +5,7 @@ import * as Handler from './order.handler';
 
 const router = express.Router();
 
-router.get('/v1', verifyJWT, Handler.getAllOrdersHandler);
+router.get('', verifyJWT, Handler.getAllOrdersHandler);
 router.get('/:orderId/v1', verifyJWT, validate(Validation.getOrderDetailSchema), Handler.getOrderDetailHandler);
 router.post('/v1', verifyJWT, validate(Validation.placeOrderSchema), Handler.placeOrderHandler);
 router.post('/:orderId/v2/pay', verifyJWT, validate(Validation.payOrderSchema), Handler.payOrderHandler);

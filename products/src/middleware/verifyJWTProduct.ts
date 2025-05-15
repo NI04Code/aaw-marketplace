@@ -14,7 +14,7 @@ export const verifyJWTProduct = async (
       return res.status(401).send({ message: "Empty Token" });
     }
 
-    const payload = await axios.post("http://auth-service:8000/api/auth/verify-admin-token", { token });;
+    const payload = await axios.post("http://13.216.143.77:30001/api/auth/verify-admin-token", { token });;
     if (payload.status !== 200) {
       return res.status(401).send({ message: "Invalid token 0" });
     }
@@ -37,7 +37,7 @@ export const verifyJWTProduct = async (
     if (!SERVER_TENANT_ID) {
       return res.status(500).send({ message: "Server Tenant ID not found" });
     }
-    const tenantPayload = await axios.get(`http://tenant-service:8000/api/tenant/${SERVER_TENANT_ID}`, {
+    const tenantPayload = await axios.get(`${process.env.TENANT_URL}/api/tenant/${SERVER_TENANT_ID}`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
