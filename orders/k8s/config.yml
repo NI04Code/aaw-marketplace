@@ -4,9 +4,10 @@ metadata:
   name: order-config
 data:
   TENANT_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
-  DB_HOST: "order-db"
   DB_PORT: "5432"
   DB_NAME: "aaw-marketplace-order"
+  DB_WRITER_HOST: "tk-aaw.cluster-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
+  DB_READER_HOST: "tk-aaw.cluster-ro-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
 
 
 ---
@@ -18,4 +19,4 @@ type: Opaque
 data:
   JWT_SECRET: YXV0aF9tc19qd3Rfc2VjcmV0  # Base64-encoded value
   DB_USER: cG9zdGdyZXM=  # Base64 of "postgres"
-  DB_PASSWORD: cG9zdGdyZXM= # Base64 of "postgres"
+  DB_PASSWORD: PH5oOThKVFZbcCpDUGdtQjJob2lzWm4tdy42Rg==
