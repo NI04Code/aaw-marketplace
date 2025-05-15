@@ -1,4 +1,4 @@
-import { db } from "@src/db"
+import { writerDb } from "@src/db"
 import * as schemaTenant from '@db/schema/tenants'
 import * as schemaTenantDetails from '@db/schema/tenantDetails'
 import { eq } from "drizzle-orm"
@@ -11,7 +11,7 @@ export const editTenantById = async (
         name: string | undefined
     }
 ) => {
-    const result = await db.transaction(async (tx) => {
+    const result = await writerDb.transaction(async (tx) => {
         if (!data.tenant_id) {
             let resultTenant;
             if (!!data.owner_id) {

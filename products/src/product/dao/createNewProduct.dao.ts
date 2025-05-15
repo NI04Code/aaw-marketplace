@@ -1,9 +1,9 @@
 import { NewProduct } from "@db/schema/products";
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schema from '@db/schema/products'
 
 export const createNewProduct = async (data: NewProduct) => {
-    const result = await db
+    const result = await writerDb
                     .insert(schema.products)
                     .values(data)
                     .returning({

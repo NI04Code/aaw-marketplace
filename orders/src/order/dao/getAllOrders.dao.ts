@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { readerDb } from "@src/db";
 import { and, eq } from "drizzle-orm";
 import * as schema from "@db/schema/order";
 
@@ -6,7 +6,7 @@ export const getAllOrders = async (
     tenant_id: string,
     user_id: string,
 ) => {
-    const result = await db
+    const result = await readerDb
         .select()
         .from(schema.order)
         .where(and(

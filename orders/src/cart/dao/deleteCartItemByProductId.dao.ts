@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import { eq, and } from "drizzle-orm";
 import * as schema from '@db/schema/cart';
 
@@ -7,7 +7,7 @@ export const deleteCartItemByProductId = async (
     user_id: string,
     product_id: string,
 ) => {
-    const result = await db
+    const result = await writerDb
         .delete(schema.cart)
         .where(and(
             eq(schema.cart.tenant_id, tenant_id),

@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { readerDb } from "@src/db";
 import * as schema from '@db/schema/products'
 import { and, eq, inArray } from "drizzle-orm";
 
@@ -6,7 +6,7 @@ export const getManyProductDatasById = async (
     tenant_id: string,
     productIds: string[],
 ) => {
-    const result = await db
+    const result = await readerDb
         .select()
         .from(schema.products)
         .where(and(

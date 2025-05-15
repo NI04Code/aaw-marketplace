@@ -1,9 +1,9 @@
-import { db } from "@src/db";
+import { readerDb } from "@src/db";
 import { eq } from "drizzle-orm";
 import * as schema from '@db/schema/products'
 
 export const getAllProductsByTenantId = async (tenantId: string) => {
-    const result = await db
+    const result = await readerDb
         .select()
         .from(schema.products)
         .where(eq(schema.products.tenant_id, tenantId))

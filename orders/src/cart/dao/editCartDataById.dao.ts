@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schema from '@db/schema/cart';
 import { and, eq } from "drizzle-orm";
 
@@ -9,7 +9,7 @@ export const editCartDataById = async (
         quantity?: number;
     }
 ) => {
-    const result = await db
+    const result = await writerDb
         .update(schema.cart)
         .set({
             quantity: data.quantity,

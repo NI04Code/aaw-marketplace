@@ -1,9 +1,9 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import { NewCart } from "@db/schema/cart";
 import * as schema from '@db/schema/cart';
 
 export const addItemToCart = async (data: NewCart) => {
-    const result = await db
+    const result = await writerDb
         .insert(schema.cart)
         .values(data)
         .returning({

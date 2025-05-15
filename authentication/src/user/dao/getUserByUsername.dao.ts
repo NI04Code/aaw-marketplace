@@ -1,9 +1,9 @@
 import * as schema from '@db/schema/users'
-import { db } from "@src/db";
+import { readerDb } from "@src/db";
 import { eq, and } from "drizzle-orm";
 
 export const getUserByUsername = async (username: string, tenant_id: string) => {
-    const result = await db
+    const result = await readerDb
         .select()
         .from(schema.users)
         .where(

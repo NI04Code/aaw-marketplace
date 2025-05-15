@@ -1,11 +1,11 @@
 import { NewUser } from "@db/schema/users";
 import * as schema from '@db/schema/users'
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 
 export const insertNewUser = async (data: NewUser) => {
     console.log("insertNewUser data"   ,data)
-    console.log("insertNewUser db"   ,db)
-    const result = await db
+    console.log("insertNewUser db"   ,writerDb)
+    const result = await writerDb
         .insert(schema.users)
         .values(data)
         .returning({

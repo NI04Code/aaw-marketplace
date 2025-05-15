@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schema from "@db/schema/order";
 import { and, eq } from "drizzle-orm";
 
@@ -7,7 +7,7 @@ export const cancelOrder = async (
     user_id: string,
     order_id: string,
 ) => {
-    const result = await db
+    const result = await writerDb
         .update(schema.order)
         .set({
             order_status: 'CANCELLED',

@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schema from '@db/schema/products'
 import { and, eq } from "drizzle-orm";
 
@@ -13,7 +13,7 @@ export const editProductById = async (
         category_id: string | undefined,
     }
 ) => {
-    const result = await db
+    const result = await writerDb
         .update(schema.products)
         .set({
             name: data.name,

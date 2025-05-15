@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import { eq, and } from "drizzle-orm";
 import * as schema from '@db/schema/wishlist';
 
@@ -6,7 +6,7 @@ export const deleteWishlistById = async (
     tenant_id: string,
     id: string,
 ) => {
-    const result = await db
+    const result = await writerDb
                     .delete(schema.wishlist)
                     .where(and(
                         eq(schema.wishlist.id, id),

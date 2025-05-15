@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import { NewPayment } from "@db/schema/payment";
 import * as schemaPayment from '@db/schema/payment';
 import * as schemaOrder from "@db/schema/order";
@@ -7,7 +7,7 @@ import { and, eq } from "drizzle-orm";
 import { v4 as uuidv4 } from 'uuid';
 
 export const payOrder = async (data: NewPayment) => {
-    const result = await db.transaction(async (trx) => {
+    const result = await writerDb.transaction(async (trx) => {
         const payment = await trx
             .insert(schemaPayment.payment)
             .values(data)

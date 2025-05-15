@@ -1,4 +1,4 @@
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schema from '@db/schema/wishlist';
 import { and, eq } from "drizzle-orm";
 
@@ -9,7 +9,7 @@ export const updateWishlistById = async (
         name: string | undefined,
     }
 ) => {
-    const result = await db
+    const result = await writerDb
                     .update(schema.wishlist)
                     .set({
                         name: data.name

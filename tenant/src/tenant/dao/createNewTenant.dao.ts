@@ -1,12 +1,12 @@
 import * as schemaTenant from '@db/schema/tenants'
 import * as schemaTenantDetails from '@db/schema/tenantDetails'
-import { db } from "@src/db"
+import { writerDb } from "@src/db"
 
 export const createNewTenant = async (
     owner_id: string,
     name: string
 ) => {
-    const result = await db.transaction(async (tx) => {
+    const result = await writerDb.transaction(async (tx) => {
         const resultTenant = await tx
                         .insert(schemaTenant.tenants)
                         .values({

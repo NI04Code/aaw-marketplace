@@ -1,6 +1,6 @@
 import { Order, NewOrder } from "@db/schema/order";
 import { NewOrderDetail, OrderDetail } from "@db/schema/orderDetail";
-import { db } from "@src/db";
+import { writerDb } from "@src/db";
 import * as schemaCart from "@db/schema/cart";
 import * as schemaOrder from "@db/schema/order";
 import * as schemaOrderDetail from "@db/schema/orderDetail";
@@ -15,7 +15,7 @@ export const createOrder = async (
     products_data: Product[],
     shipping_provider: 'JNE' | 'TIKI' | 'SICEPAT' | 'GOSEND' | 'GRAB_EXPRESS',
 ) => {
-    const result = await db.transaction(async (trx) => {
+    const result = await writerDb.transaction(async (trx) => {
         // calculate total amount
         const total_amount = cart_items.reduce((acc, item) => {
             const product = products_data.find((product) => product.id === item.product_id);

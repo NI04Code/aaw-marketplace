@@ -1,10 +1,10 @@
 import * as schemaTenant from '@db/schema/tenants'
 import * as schemaTenantDetails from '@db/schema/tenantDetails'
-import { db } from "@src/db"
+import { writerDb } from "@src/db"
 import { eq } from "drizzle-orm"
 
 export const deleteTenantById = async (tenant_id: string) => {
-    const result = await db.transaction(async (tx) => {
+    const result = await writerDb.transaction(async (tx) => {
         const resultTenantDetails = await tx
                                         .delete(schemaTenantDetails.tenantDetails)
                                         .where(eq(schemaTenantDetails.tenantDetails.tenant_id, tenant_id))
