@@ -33,11 +33,16 @@ spec:
                 secretKeyRef:
                   name: order-secrets
                   key: JWT_SECRET
-            - name: DB_HOST
+            - name: DB_WRITER_HOST
               valueFrom:
                 configMapKeyRef:
                   name: order-config
-                  key: DB_HOST
+                  key: DB_WRITER_HOST
+            - name: DB_READER_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: order-config
+                  key: DB_READER_HOST
             - name: DB_PORT
               valueFrom:
                 configMapKeyRef:
