@@ -11,10 +11,16 @@ const DB_READER_HOST = process.env.DB_READER_HOST ?? process.env.DB_HOST ?? "loc
 
 export const writerPool = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_WRITER_HOST}:${DB_PORT}/${DB_NAME}`,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export const readerPool = new Pool({
   connectionString: `postgres://${DB_USER}:${DB_PASSWORD}@${DB_READER_HOST}:${DB_PORT}/${DB_NAME}`,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
 export const writerDb = drizzle(writerPool);
