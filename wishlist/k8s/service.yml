@@ -13,6 +13,7 @@ spec:
         app: wishlist-service
     spec:
       nodeSelector:
+        service: "wishlist"
         node-role.kubernetes.io/worker: "true"
       containers:
         - name: wishlist-service

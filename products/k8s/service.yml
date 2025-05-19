@@ -13,6 +13,7 @@ spec:
         app: product-service
     spec:
       nodeSelector:
+        service: "product"
         node-role.kubernetes.io/worker: "true"
       containers:
         - name: product-service

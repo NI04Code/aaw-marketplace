@@ -13,6 +13,7 @@ spec:
         app: tenant-service
     spec:
       nodeSelector:
+        service: "tenant"
         node-role.kubernetes.io/worker: "true"
       containers:
         - name: tenant-service
