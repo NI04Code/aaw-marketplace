@@ -9,6 +9,8 @@ data:
   DB_WRITER_HOST: "tk-aaw.cluster-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
   DB_READER_HOST: "tk-aaw.cluster-ro-crcxfqnmcgs4.us-east-1.rds.amazonaws.com"
   TENANT_URL: "http://3.90.5.85:30002"
+  AUTH_URL: "http://13.216.143.77:30001"
+  REDIS_URL: "elasticache redis"
 
 
 ---

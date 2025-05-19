@@ -3,7 +3,7 @@ import * as Service from "./services";
 
 export const getAllOrdersHandler = async (req: Request, res: Response) => {
     const { user } = req.body;
-    const response = await Service.getAllOrdersService(user);
+    const response = await Service.getAllOrdersService(user, req);
     return res.status(response.status).send(response.data);
 }
 

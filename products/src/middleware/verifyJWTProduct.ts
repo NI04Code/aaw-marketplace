@@ -14,7 +14,7 @@ export const verifyJWTProduct = async (
       return res.status(401).send({ message: "Empty Token" });
     }
 
-    const payload = await axios.post("http://13.216.143.77:30001/api/auth/verify-admin-token", { token });;
+    const payload = await axios.post(`${process.env.AUTH_URL}/api/auth/verify-admin-token`, { token });;
     if (payload.status !== 200) {
       return res.status(401).send({ message: "Invalid token 0" });
     }
