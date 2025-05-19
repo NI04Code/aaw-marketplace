@@ -19,11 +19,11 @@ spec:
           image: ni04code/aaw-marketplace-product-service:latest
           resources:
             requests:
-              cpu: "250m"
-              memory: "256Mi"
+              cpu: "300m"
+              memory: "500Mi"
             limits:
               cpu: "500m"
-              memory: "384Mi"
+              memory: "600Mi"
           env:
             - name: TENANT_ID
               valueFrom:
