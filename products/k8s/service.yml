@@ -65,6 +65,11 @@ spec:
                 configMapKeyRef:
                   name: product-config
                   key: DB_NAME
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: product-config
+                  key: REDIS_URL
           ports:
             - containerPort: 8000
 

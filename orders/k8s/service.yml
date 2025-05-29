@@ -65,6 +65,11 @@ spec:
                 configMapKeyRef:
                   name: order-config
                   key: DB_NAME
+            - name: REDIS_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: order-config
+                  key: REDIS_URL
           ports:
             - containerPort: 8000
 
