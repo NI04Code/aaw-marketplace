@@ -10,7 +10,7 @@ function sinusoidalVU(t, A, B, T) {
 export const options = {
   stages: Array.from({ length: 10 }, (_, i) => ({
     duration: "1m",
-    target: sinusoidalVU(i, 200, 100, 10),
+    target: sinusoidalVU(i, 2000, 1000, 10),
   })),
 };
 // const BASE_URL = "http://34.232.30.223:80/service-auth";

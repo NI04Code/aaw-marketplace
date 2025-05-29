@@ -13,7 +13,6 @@ spec:
         app: auth-service
     spec:
       nodeSelector:
-        service: "auth"
         node-role.kubernetes.io/worker: "true"
       containers:
         - name: auth-service

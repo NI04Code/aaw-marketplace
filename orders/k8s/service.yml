@@ -13,7 +13,6 @@ spec:
         app: order-service
     spec:
       nodeSelector:
-        service: "order"
         node-role.kubernetes.io/worker: "true"
       containers:
         - name: order-service
