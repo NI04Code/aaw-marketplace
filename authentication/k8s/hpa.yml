@@ -7,8 +7,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: auth-service
-  minReplicas: 6
-  maxReplicas: 18
+  minReplicas: 2
+  maxReplicas: 5
   metrics:
     - type: Resource
       resource:
