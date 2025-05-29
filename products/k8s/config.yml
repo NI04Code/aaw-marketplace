@@ -6,11 +6,11 @@ data:
   TENANT_ID: "47dd6b24-0b23-46b0-a662-776158d089ba"
   DB_PORT: "5432"
   DB_NAME: "postgres"
-  DB_WRITER_HOST: "product-db.cluster-cffqe08z3hsq.us-east-1.rds.amazonaws.com"
-  DB_READER_HOST: "product-db.cluster-ro-cffqe08z3hsq.us-east-1.rds.amazonaws.com"
+  DB_WRITER_HOST: "product-db.cluster-ro-c7tvai5qsznv.us-east-1.rds.amazonaws.com"
+  DB_READER_HOST: "product-db.cluster-c7tvai5qsznv.us-east-1.rds.amazonaws.com"
   TENANT_URL: "http://3.90.5.85:30002"
   AUTH_URL: "http://13.216.143.77:30001"
-  REDIS_URL: "product-cache-enpt2t.serverless.use1.cache.amazonaws.com"
+  REDIS_URL: "product-cache-2twkwp.serverless.use1.cache.amazonaws.com:6379"
 
 
 ---
