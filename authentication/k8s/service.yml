@@ -11,6 +11,7 @@ spec:
       labels:
         app: auth-service
     spec:
+      dnsPolicy: ClusterFirst
       nodeSelector:
         node-role.kubernetes.io/worker: "true"
       containers:
